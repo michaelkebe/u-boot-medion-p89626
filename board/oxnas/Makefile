@@ -25,6 +25,11 @@
 # MA 02111-1307 USA
 #
 
+#TODO Use the configuration (boards.cfg?) for the NAS_VERSION
+NAS_VERSION = 820
+#TODO
+include config-$(NAS_VERSION).mk
+
 include $(TOPDIR)/config.mk
 
 LIB	= lib$(BOARD).a

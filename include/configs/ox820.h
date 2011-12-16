@@ -31,6 +31,11 @@
 
 #define CFG_FLASH_EMPTY_INFO
 
+//TODO WARNING: Maybe this is harmful! Currently I have no clue what this is!
+#define CONFIG_SYS_INIT_SP_ADDR    -1
+//TODO
+#define USE_FLASH 1
+
 /**
  * Architecture
  */
@@ -103,16 +108,16 @@
 /* Miscellaneous configurable options */
 #define CFG_LONGHELP				/* undef to save memory		*/
 #ifdef CFG_HUSH_PARSER
-#define CFG_PROMPT		"$ "		/* Monitor Command Prompt */
+#define CONFIG_SYS_PROMPT		"$ "		/* Monitor Command Prompt */
 #else
-#define CFG_PROMPT		"# "		/* Monitor Command Prompt */
+#define CONFIG_SYS_PROMPT		"# "		/* Monitor Command Prompt */
 #endif
-#define CFG_CBSIZE      256             /* Console I/O Buffer Size  */
+#define CONFIG_SYS_CBSIZE      256             /* Console I/O Buffer Size  */
 
 /* Print Buffer Size */
-#define CFG_PBSIZE      ((CFG_CBSIZE)+sizeof(CFG_PROMPT)+16)
-#define CFG_MAXARGS     16              /* max number of command args   */
-#define CFG_BARGSIZE    (CFG_CBSIZE)    /* Boot Argument Buffer Size    */
+#define CONFIG_SYS_PBSIZE      ((CONFIG_SYS_CBSIZE)+sizeof(CONFIG_SYS_PROMPT)+16)
+#define CONFIG_SYS_MAXARGS     16              /* max number of command args   */
+#define CFG_BARGSIZE    (CONFIG_SYS_CBSIZE)    /* Boot Argument Buffer Size    */
 
 #define CONFIG_CMDLINE_TAG          1   /* enable passing of ATAGs  */
 #define CONFIG_SETUP_MEMORY_TAGS    1
@@ -120,7 +125,8 @@
 #define CONFIG_INITRD_TAG           1   /* allow initrd tag to be generated */
 
 /* May want to do some setup prior to relocation */
-#define CONFIG_INIT_CRITICAL
+//TODO commented out
+//#define CONFIG_INIT_CRITICAL
 
 /* ARM specific late initialisation */
 #define BOARD_LATE_INIT
@@ -139,6 +145,7 @@
 /**
  * RAM
  */
+#define CONFIG_SYS_SDRAM_BASE   0
 #define CONFIG_NR_DRAM_BANKS    1           /* We have 1 bank of SDRAM */
 #define PHYS_SDRAM_1_PA         0x60000000  /* SDRAM Bank #1 */
 #define PHYS_SDRAM_1_MAX_SIZE	(512 * 1024 * 1024)
@@ -148,7 +155,7 @@
 #undef INITIALISE_SDRAM
 
 /* Default location from which bootm etc will load */
-#define CFG_LOAD_ADDR   (PHYS_SDRAM_1_PA)
+#define CONFIG_SYS_LOAD_ADDR   (PHYS_SDRAM_1_PA)
 
 /* Core addresses */
 #define MACA_BASE_PA            0x40400000
@@ -255,7 +262,7 @@
 
 #define CONFIG_CONS_INDEX    1
 #define CONFIG_BAUDRATE      115200
-#define CFG_BAUDRATE_TABLE   { 9600, 19200, 38400, 57600, 115200 }
+#define CONFIG_SYS_BAUDRATE_TABLE   { 9600, 19200, 38400, 57600, 115200 }
 
 /* UART_A multi function pins (in sys ctrl core)*/
 #define UART_1_SIN_MF_PIN              30
@@ -332,7 +339,8 @@
 #define CONFIG_COMMANDS SF_COMMANDS
 
 /* This must be included AFTER the definition of CONFIG_COMMANDS */
-#include <cmd_confdefs.h>
+//TODO commented out
+//#include <cmd_confdefs.h>
 
 /**
  * Booting
@@ -461,9 +469,9 @@
 
 /* Assuming counts main blocks and parameter blocks, as the Intel/AMD detection */
 /* I'm intending to copy would seem to indicate */
-#define CFG_MAX_FLASH_SECT      (NUM_FLASH_MAIN_BLOCKS + NUM_FLASH_PARAM_BLOCKS)
+#define CONFIG_SYS_MAX_FLASH_SECT      (NUM_FLASH_MAIN_BLOCKS + NUM_FLASH_PARAM_BLOCKS)
 
-#define CFG_MAX_FLASH_BANKS     1           /* Assume counts flash devices */
+#define CONFIG_SYS_MAX_FLASH_BANKS     1           /* Assume counts flash devices */
 #define FLASH_BASE_OFF          0
 #define CFG_FLASH_BASE          ((STATIC_CS0_BASE_PA) + (FLASH_BASE_OFF))
 #define PHYS_FLASH_1            (CFG_FLASH_BASE)
@@ -483,29 +491,29 @@
 /* Environment on SATA disk */
 #define SIZE_TO_SECTORS(x) ((x) / 512)
 #define UBOOT_DISK_ALLOTMENT (256 * 1024)
-#define CFG_ENV_IS_IN_DISK
-#define CFG_ENV_SIZE			(8*1024)
-#define ENVIRONMENT_OFFSET		((UBOOT_DISK_ALLOTMENT) - (CFG_ENV_SIZE) - 1024)
-#define CFG_ENV_ADDR			((CFG_SRAM_BASE) + (ENVIRONMENT_OFFSET))
+#define CONFIG_ENV_IS_IN_DISK
+#define CONFIG_ENV_SIZE			(8*1024)
+#define ENVIRONMENT_OFFSET		((UBOOT_DISK_ALLOTMENT) - (CONFIG_ENV_SIZE) - 1024)
+#define CONFIG_ENV_ADDR			((CFG_SRAM_BASE) + (ENVIRONMENT_OFFSET))
 #define ROM_LOADER_LOAD_START_SECTOR 64
 #define CFG_ENV_DISK_SECTOR 	((ROM_LOADER_LOAD_START_SECTOR) + SIZE_TO_SECTORS(ENVIRONMENT_OFFSET))
 #define ROM_LOADER_LOAD_REDUNDANT_START_SECTOR 57088
 #define CFG_ENV_DISK_REDUNDANT_SECTOR ((ROM_LOADER_LOAD_REDUNDANT_START_SECTOR) + SIZE_TO_SECTORS(ENVIRONMENT_OFFSET))
 
 #elif defined(ENV_ON_SPI)
-#define CFG_ENV_IS_IN_SPI
+#define CONFIG_ENV_IS_IN_SPI
 /* Environment in flash device parameter blocks */
 #define CFG_ENV_SECT_SIZE   (8*1024)
 /* First parameter block for environment */
-#define CFG_ENV_SIZE    CFG_ENV_SECT_SIZE
+#define CONFIG_ENV_SIZE    CFG_ENV_SECT_SIZE
 #define CFG_ENV_OFFSET  0x10000//STMICRO M25P32 SPI, the erase size is 64KB. 0x8000 //the ENV addrese = Flash size - CFG_ENV_OFFSET
 
 #elif defined(ENV_ON_NAND)
-#define CFG_ENV_IS_IN_NAND
+#define CONFIG_ENV_IS_IN_NAND
 /* Environment in flash device parameter blocks */
 #define CFG_ENV_SECT_SIZE   (128*1024)
 /* First parameter block for environment */
-#define CFG_ENV_SIZE    CFG_ENV_SECT_SIZE
+#define CONFIG_ENV_SIZE    CFG_ENV_SECT_SIZE
 #define CFG_ENV_OFFSET  0x3c0000 //the 30th block for STG-100
 #define CFG_ENV_BAD_BLOCKS 2
 #define CFG_ENV_NAND_REDUNDANT_OFFSET   0x1180000//the 140th block
@@ -524,19 +532,19 @@
  *  is the size of the environment. I hope this isn't really true. The defines
  *  below may well not work if this is the truth
  */
-#define CFG_ENV_IS_IN_FLASH
+#define CONFIG_ENV_IS_IN_FLASH
 #endif // (USE_FLASH == 1)
 
 /* Environment in flash device parameter blocks */
 #define CFG_ENV_SECT_SIZE   (8*1024)
 /* First parameter block for environment */
-#define CFG_ENV_SIZE        CFG_ENV_SECT_SIZE
+#define CONFIG_ENV_SIZE        CFG_ENV_SECT_SIZE
 /* Second parameter block for backup environment */
-#define CFG_ENV_SIZE_REDUND (CFG_ENV_SIZE)
+#define CFG_ENV_SIZE_REDUND (CONFIG_ENV_SIZE)
 /* Main environment occupies first parameter block */
-#define CFG_ENV_ADDR        ((CFG_FLASH_BASE)+((NUM_FLASH_MAIN_BLOCKS)*(FLASH_MAIN_BLOCK_SIZE)))
+#define CONFIG_ENV_ADDR        ((CFG_FLASH_BASE)+((NUM_FLASH_MAIN_BLOCKS)*(FLASH_MAIN_BLOCK_SIZE)))
 /* Backup environment occupies second parameter block */
-#define CFG_ENV_ADDR_REDUND ((CFG_ENV_ADDR)+(CFG_ENV_SIZE))
+#define CFG_ENV_ADDR_REDUND ((CFG_ENV_ADDR)+(CONFIG_ENV_SIZE))
 #endif 
 
 
@@ -565,7 +573,7 @@
 #endif
 
 /* Size of malloc() pool */
-#define CFG_MALLOC_LEN      (CFG_ENV_SIZE + 128*1024)
+#define CONFIG_SYS_MALLOC_LEN      (CONFIG_ENV_SIZE + 128*1024)
 #define CFG_GBL_DATA_SIZE   128 /* size in bytes reserved for initial data */
 
 /**

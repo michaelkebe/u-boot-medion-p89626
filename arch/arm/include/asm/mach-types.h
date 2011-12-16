@@ -212,6 +212,7 @@ extern unsigned int __machine_arch_type;
 #define MACH_TYPE_EDB9307A             1128
 #define MACH_TYPE_OMAP_3430SDP         1138
 #define MACH_TYPE_VSTMS                1140
+#define MACH_TYPE_OXNAS                1152
 #define MACH_TYPE_MICRO9M              1169
 #define MACH_TYPE_BUG                  1179
 #define MACH_TYPE_AT91SAM9263EK        1202
@@ -3504,6 +3505,18 @@ extern unsigned int __machine_arch_type;
 # define machine_is_vstms()	(machine_arch_type == MACH_TYPE_VSTMS)
 #else
 # define machine_is_vstms()	(0)
+#endif
+
+#ifdef CONFIG_MACH_OXNAS
+# ifdef machine_arch_type
+#  undef machine_arch_type
+#  define machine_arch_type	__machine_arch_type
+# else
+#  define machine_arch_type	MACH_TYPE_OXNAS
+# endif
+# define machine_is_oxnas()	(machine_arch_type == MACH_TYPE_OXNAS)
+#else
+# define machine_is_oxnas()	(0)
 #endif
 
 #ifdef CONFIG_MACH_MICRO9M

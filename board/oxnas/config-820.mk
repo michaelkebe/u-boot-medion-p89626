@@ -1,5 +1,5 @@
 # U-boot configuration for the OX820 platforms
-CROSS_COMPILE=arm-none-linux-gnueabi-
+#CROSS_COMPILE=arm-none-linux-gnueabi-
 
 # U-boot's location when executing from DDR
 TEXT_BASE = 0x60d00000
