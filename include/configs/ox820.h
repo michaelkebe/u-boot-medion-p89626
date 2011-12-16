@@ -33,7 +33,7 @@
 
 //TODO WARNING: Maybe this is harmful! Currently I have no clue what this is!
 #define CONFIG_SYS_INIT_SP_ADDR    -1
-//TODO
+//TODO Maybe this could be added in the boards.cfg
 #define USE_FLASH 1
 
 /**
@@ -544,7 +544,7 @@
 /* Main environment occupies first parameter block */
 #define CONFIG_ENV_ADDR        ((CFG_FLASH_BASE)+((NUM_FLASH_MAIN_BLOCKS)*(FLASH_MAIN_BLOCK_SIZE)))
 /* Backup environment occupies second parameter block */
-#define CFG_ENV_ADDR_REDUND ((CFG_ENV_ADDR)+(CONFIG_ENV_SIZE))
+#define CFG_ENV_ADDR_REDUND ((CONFIG_ENV_ADDR)+(CONFIG_ENV_SIZE))
 #endif 
 
 
