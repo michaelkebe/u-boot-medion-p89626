@@ -138,7 +138,9 @@ int dram_init(void)
 #if (PROBE_MEM_SIZE == 1)
 #error Automatic memory size detection not yet implemented on the OX82x platform
 #else // PROBE_MEM_SIZE
-    gd->bd->bi_dram[0].size = MEM_SIZE << 20; /* convert to MBytes */
+    //TODO Put MEM_SIZE in configuration
+    //gd->bd->bi_dram[0].size = MEM_SIZE << 20; /* convert to MBytes */
+    gd->bd->bi_dram[0].size = 128 << 20; /* convert to MBytes */
 #endif // PROBE_MEM_SIZE
 
     gd->bd->bi_dram[0].start = PHYS_SDRAM_1_PA;
@@ -150,7 +152,7 @@ int dram_init(void)
 }
 
 /* OX820 code */
-int reset_cpu(void)
+void reset_cpu(ulong addr)
 {
 	printf("Resetting...\n");
 
@@ -227,8 +229,6 @@ int reset_cpu(void)
 		(1UL << SYS_CTRL_RSTEN_SCU_BIT) |
 		(1UL << SYS_CTRL_RSTEN_ARM0_BIT) |
 		(1UL << SYS_CTRL_RSTEN_ARM1_BIT);
-
-	return 0;
 }
 
 #if (CONFIG_COMMANDS & CFG_CMD_NAND)

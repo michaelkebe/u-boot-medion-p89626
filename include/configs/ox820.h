@@ -33,8 +33,14 @@
 
 //TODO WARNING: Maybe this is harmful! Currently I have no clue what this is!
 #define CONFIG_SYS_INIT_SP_ADDR    -1
+
 //TODO Maybe this could be added in the boards.cfg
 #define USE_FLASH 1
+
+//TODO needed for testing cpu arm1176
+//TODO WARNING: Maybe this is harmful! Currently I have no clue what this is!
+#define CONFIG_SYS_UBOOT_BASE -1
+#define CONFIG_SYS_TEXT_BASE -1
 
 /**
  * Architecture
@@ -574,7 +580,7 @@
 
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN      (CONFIG_ENV_SIZE + 128*1024)
-#define CFG_GBL_DATA_SIZE   128 /* size in bytes reserved for initial data */
+#define CONFIG_SYS_GBL_DATA_SIZE   128 /* size in bytes reserved for initial data */
 
 /**
  * ASM startup control

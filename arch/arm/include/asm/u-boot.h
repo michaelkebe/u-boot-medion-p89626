@@ -46,6 +46,8 @@ typedef struct bd_info {
 	ulong start;
 	ulong size;
     }			bi_dram[CONFIG_NR_DRAM_BANKS];
+  unsigned long bi_sramstart; /* start of SRAM memory */
+  unsigned long bi_sramsize;  /* size  of SRAM memory */
 } bd_t;
 
 /* For image.h:image_check_target_arch() */

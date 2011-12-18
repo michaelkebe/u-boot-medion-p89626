@@ -1,10 +1,6 @@
 #
-# (C) Copyright 2000-2004
+# (C) Copyright 2000-2006
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
-#
-# (C) Copyright 2004
-# ARM Ltd.
-# Philippe Robin, <philippe.robin@arm.com>
 #
 # See file CREDITS for list of people who contributed to this
 # project.
@@ -25,32 +21,24 @@
 # MA 02111-1307 USA
 #
 
-#TODO Use the configuration (boards.cfg?) for the NAS_VERSION
-NAS_VERSION = 820
-#TODO
-include config-$(NAS_VERSION).mk
-
 include $(TOPDIR)/config.mk
 
-LIB	= lib$(BOARD).a
+LIB	= $(obj)lib$(BOARD).o
 
-OBJS	:= ox$(NAS_VERSION).o eth.o ide-$(NAS_VERSION).o synopsis.o
-SOBJS	:= platform-$(NAS_VERSION).o
+COBJS	:= $(BOARD).o eth.o ide-820.o synopsis.o
 
-$(LIB):	$(OBJS) $(SOBJS)
-	$(AR) crv $@ $^
+SRCS	:= $(SOBJS:.o=.S) $(COBJS:.o=.c)
+OBJS	:= $(addprefix $(obj),$(COBJS))
+SOBJS	:= $(addprefix $(obj),$(SOBJS))
 
-clean:
-	rm -f $(SOBJS) $(OBJS)
-
-distclean:	clean
-	rm -f $(LIB) core *.bak .depend
+$(LIB):	$(obj).depend $(OBJS)
+	$(call cmd_link_o_target, $(OBJS))
 
 #########################################################################
 
-.depend:	Makefile $(SOBJS:.o=.S) $(OBJS:.o=.c)
-		$(CC) -M $(CPPFLAGS) $(SOBJS:.o=.S) $(OBJS:.o=.c) > $@
+# defines $(obj).depend target
+include $(SRCTREE)/rules.mk
 
--include .depend
+sinclude $(obj).depend
 
 #########################################################################
