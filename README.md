@@ -16,5 +16,7 @@ To build the new board follow these steps (currently not working):
 4. `$ make ox820_config`
 5. `$ make`
 
+It should be OK to use any other cross compile toolchain like crosstool-ng.
+
 [medionsources]: http://www.medion.com/de/service/_lightbox/software_details.php?did=10636
 [ubootgit]: http://git.denx.de/u-boot.git/
